@@ -1,6 +1,5 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import CreateAi from "./new";
 import Link from "next/link";
 import { AiTextType } from "../types/AiTextType";
 
@@ -9,7 +8,7 @@ export default function TextAll(){
  
     async function  getAiTexts() {
         try{
-           const res =  await axios.get<AiTextType[]>("http://localhost:3000/ai_texts")
+           const res =  await axios.get<AiTextType[]>("http://localhost:3000/api/v1/ai_texts")
            setTexts(res.data)
         }catch(e){
             console.log(e);

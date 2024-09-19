@@ -11,7 +11,7 @@ const {id} = router.query;
 
 async function getAiText() {
     try{
-        const res = await axios.get(`http://localhost:3000/ai_texts/${id}`)
+        const res = await axios.get(`http://localhost:3000/api/v1/ai_texts/${id}`)
         setText(res.data);
     }catch(e){
         console.log(e);

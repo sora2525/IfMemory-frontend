@@ -10,7 +10,7 @@ export function Form(){
     async function AiTextCreate(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
         try{
-            await axios.post("http://localhost:3000/ai_texts",{question})
+            await axios.post("http://localhost:3000/api/v1/ai_texts",{question})
             setQuestion("");
             router.push("./")
         } catch(e){
