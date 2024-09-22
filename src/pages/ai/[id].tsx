@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react"
-import { AiTextType } from "../types/AiTextType";
+import { AiTextType } from "../../types/AiTextType";
 import Link from "next/link";
 
 export default function ShowAi(){

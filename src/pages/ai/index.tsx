@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { AiTextType } from "../types/AiTextType";
+import { AiTextType } from "../../types/AiTextType";
 
 export default function TextAll(){
     const [texts,setTexts] = useState<AiTextType[]>([])
