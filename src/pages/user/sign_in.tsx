@@ -20,13 +20,15 @@ export default function LoginUser() {
       password 
     });
     const { "access-token": accessToken, client, uid } = response.headers;
+    const username = response.data.data.name;
     console.log(response.headers);
     
     if (accessToken && client && uid) {
-        setAuth({ accessToken, client, uid });
+        setAuth({ accessToken, client, uid, username });
         Cookies.set("access-token", accessToken, { expires: 7 });
         Cookies.set("client", client, { expires: 7 });
         Cookies.set("uid", uid, { expires: 7 });
+        Cookies.set("username", username, { expires: 7 });
     }
     setSuccess("ログインに成功しました！");
     setError(null);

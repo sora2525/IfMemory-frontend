@@ -23,7 +23,8 @@ export function LogoutButton(){
             Cookies.remove("access-token");
             Cookies.remove("client");
             Cookies.remove("uid");
-            setAuth({ accessToken: '', client: '', uid: '' })
+            Cookies.remove("username");
+            setAuth({ accessToken: '', client: '', uid: '' ,username: ''})
             router.push("/");
         }catch(e:any){
             setError("ログアウトに失敗しました:");

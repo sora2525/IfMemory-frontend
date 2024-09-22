@@ -6,5 +6,6 @@ export const authState = atom({
         accessToken: '',
         client: '',
         uid: '',
+        username: '',
       },
 })

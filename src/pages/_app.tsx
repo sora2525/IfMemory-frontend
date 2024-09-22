@@ -12,9 +12,10 @@ function MyApp({ Component, pageProps }: AppProps) {
     const accessToken = Cookies.get("access-token");
     const client = Cookies.get("client");
     const uid = Cookies.get("uid");
+    const username = Cookies.get("username") || "";
 
     if (accessToken && client && uid) {
-      setAuth({ accessToken, client, uid });
+      setAuth({ accessToken, client, uid, username });
     }
   }, [setAuth]);
 

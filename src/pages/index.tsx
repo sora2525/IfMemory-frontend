@@ -11,8 +11,19 @@ export default function Home() {
      <Link href="/ai">
       フォームへ
      </Link>
-     {!auth.accessToken && <Link href="/user/sign_in">ログインする</Link>}
-     {auth.accessToken && <LogoutButton/>}
+
+     {!auth.accessToken && 
+    <>
+     <Link href="/user/sign_in">ログインする</Link>
+     <Link href="user/sign_up">新規登録</Link>
+    </>
+     }
+
+     {auth.accessToken &&
+     <>
+     <p>ようこそ{auth.username}さん</p>
+     <LogoutButton/>
+     </>}
 
    </>
   );
