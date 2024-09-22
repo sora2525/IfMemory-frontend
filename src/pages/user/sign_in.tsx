@@ -2,12 +2,15 @@ import axios from "axios";
 import React, { useState } from "react";
 import Cookies from "js-cookie";
 import { useRouter } from "next/router";
+import { authState } from "@/atom/authAtom";
+import { useRecoilState } from "recoil";
 
 export default function LoginUser() {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
+  const [auth,setAuth] = useRecoilState(authState);
   const router = useRouter();
 
   const Login = async (email: string, password: string) => {
@@ -20,13 +23,14 @@ export default function LoginUser() {
     console.log(response.headers);
     
     if (accessToken && client && uid) {
+        setAuth({ accessToken, client, uid });
         Cookies.set("access-token", accessToken, { expires: 7 });
         Cookies.set("client", client, { expires: 7 });
         Cookies.set("uid", uid, { expires: 7 });
     }
     setSuccess("ログインに成功しました！");
     setError(null);
-    router.push("/ai")
+    router.push("/")
     setEmail("");
     setPassword("");
   }catch (e: any) {

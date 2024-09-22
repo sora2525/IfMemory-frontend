@@ -2,8 +2,11 @@ import axios from "axios"
 import Cookies from "js-cookie";
 import { useRouter } from "next/router";
 import { useState } from "react";
+import { authState } from "@/atom/authAtom";
+import { useRecoilState } from "recoil";
 
 export function LogoutButton(){
+    const[auth,setAuth] = useRecoilState(authState);
     const [error,setError] = useState<string | null>(null);
     const router = useRouter();
 
@@ -11,15 +14,17 @@ export function LogoutButton(){
         try{
             await axios.delete("http://localhost:3000/api/v1/auth/sign_out",{
                 headers: {
-                    "access-token": Cookies.get("access-token"),
-                    "client": Cookies.get("client"),
-                    "uid": Cookies.get("uid"),
+                    "access-token": auth.accessToken,
+                    "client": auth.client,
+                    "uid": auth.uid
                   },
             });
 
             Cookies.remove("access-token");
             Cookies.remove("client");
             Cookies.remove("uid");
+            setAuth({ accessToken: '', client: '', uid: '' })
+            router.push("/");
         }catch(e:any){
             setError("ログアウトに失敗しました:");
         }
