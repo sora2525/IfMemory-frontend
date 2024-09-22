@@ -1,30 +1,24 @@
-import axios from "axios"
 import Cookies from "js-cookie";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { authState } from "@/atom/authAtom";
 import { useRecoilState } from "recoil";
+import { axiosInstance } from "@/lib/axiosInstance";
+import { userState } from "@/atom/userAtom";
 
 export function LogoutButton(){
-    const[auth,setAuth] = useRecoilState(authState);
+    const[user,setUser] = useRecoilState(userState);
+    console.log("Current user in LogoutButton:", user);
     const [error,setError] = useState<string | null>(null);
     const router = useRouter();
 
     const Logout = async()=>{
         try{
-            await axios.delete("http://localhost:3000/api/v1/auth/sign_out",{
-                headers: {
-                    "access-token": auth.accessToken,
-                    "client": auth.client,
-                    "uid": auth.uid
-                  },
-            });
-
+            await axiosInstance.delete("/auth/sign_out");
             Cookies.remove("access-token");
             Cookies.remove("client");
             Cookies.remove("uid");
             Cookies.remove("username");
-            setAuth({ accessToken: '', client: '', uid: '' ,username: ''})
+           setUser({id: null,name: null})
             router.push("/");
         }catch(e:any){
             setError("ログアウトに失敗しました:");

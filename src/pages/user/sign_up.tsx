@@ -1,3 +1,4 @@
+import { axiosInstance } from "@/lib/axiosInstance";
 import axios from "axios";
 import React, { useState } from "react";
 
@@ -11,7 +12,7 @@ export default function CreateUser() {
 
   const SignUp = async (name: string, email: string, password: string) => {
     try {
-      const response = await axios.post("http://localhost:3000/api/v1/auth", {
+      const response = await axiosInstance.post("/auth", {
         name: name,
         email: email,
         password: password,

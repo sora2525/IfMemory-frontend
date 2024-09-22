@@ -1,3 +1,4 @@
+import { axiosInstance } from "@/lib/axiosInstance";
 import axios from "axios";
 import { useRouter } from "next/router";
 import React, { useState } from "react"
@@ -10,7 +11,7 @@ export function Form(){
     async function AiTextCreate(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
         try{
-            await axios.post("http://localhost:3000/api/v1/ai_texts",{question})
+            await axiosInstance.post("/ai_texts",{question})
             setQuestion("");
         } catch(e){
             console.log(e);

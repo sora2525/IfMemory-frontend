@@ -1,17 +1,18 @@
 import axios from "axios";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react"
-import { AiTextType } from "../../types/AiTextType";
+import { TextType } from "../../types/TextType";
 import Link from "next/link";
+import { axiosInstance } from "@/lib/axiosInstance";
 
 export default function ShowAi(){
-const [text,setText] = useState<AiTextType | null>(null);
+const [text,setText] = useState<TextType | null>(null);
 const router = useRouter();
 const {id} = router.query;
 
 async function getAiText() {
     try{
-        const res = await axios.get(`http://localhost:3000/api/v1/ai_texts/${id}`)
+        const res = await axiosInstance.get(`/ai_texts/${id}`)
         setText(res.data);
     }catch(e){
         console.log(e);

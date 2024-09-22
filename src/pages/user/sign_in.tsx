@@ -4,6 +4,7 @@ import Cookies from "js-cookie";
 import { useRouter } from "next/router";
 import { authState } from "@/atom/authAtom";
 import { useRecoilState } from "recoil";
+import { axiosInstance } from "@/lib/axiosInstance";
 
 export default function LoginUser() {
   const [email, setEmail] = useState<string>("");
@@ -15,9 +16,9 @@ export default function LoginUser() {
 
   const Login = async (email: string, password: string) => {
   try {
-    const response = await axios.post("http://localhost:3000/api/v1/auth/sign_in", {
-      email, 
-      password 
+    const response = await axiosInstance.post("/auth/sign_in", {
+      email: email,
+      password: password,
     });
     const { "access-token": accessToken, client, uid } = response.headers;
     const username = response.data.data.name;

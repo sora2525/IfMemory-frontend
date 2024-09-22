@@ -1,14 +1,15 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { AiTextType } from "../../types/AiTextType";
+import { TextType } from "@/types/TextType";
+import { axiosInstance } from "@/lib/axiosInstance";
 
 export default function TextAll(){
-    const [texts,setTexts] = useState<AiTextType[]>([])
+    const [texts,setTexts] = useState<TextType[]>([])
  
-    async function  getAiTexts() {
+    async function  getTexts() {
         try{
-           const res =  await axios.get<AiTextType[]>("http://localhost:3000/api/v1/ai_texts")
+           const res =  await axiosInstance.get<TextType[]>("/ai_texts")
            setTexts(res.data)
         }catch(e){
             console.log(e);
@@ -17,7 +18,7 @@ export default function TextAll(){
     }
 
     useEffect(()=>{
-        getAiTexts();
+        getTexts();
     },[]);
 
     return(
