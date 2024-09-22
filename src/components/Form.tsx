@@ -12,7 +12,6 @@ export function Form(){
         try{
             await axios.post("http://localhost:3000/api/v1/ai_texts",{question})
             setQuestion("");
-            router.push("./")
         } catch(e){
             console.log(e);
             
