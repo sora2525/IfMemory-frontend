@@ -3,11 +3,11 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import { useRecoilState } from "recoil";
 import { axiosInstance } from "@/lib/axiosInstance";
-import { userState } from "@/atom/userAtom";
+import { authState } from "@/atom/authAtom";
 
 export function LogoutButton(){
-    const[user,setUser] = useRecoilState(userState);
-    console.log("Current user in LogoutButton:", user);
+    const[auth,setAuth] = useRecoilState(authState);
+    console.log("Current user in LogoutButton:", );
     const [error,setError] = useState<string | null>(null);
     const router = useRouter();
 
@@ -18,7 +18,7 @@ export function LogoutButton(){
             Cookies.remove("client");
             Cookies.remove("uid");
             Cookies.remove("username");
-           setUser({id: null,name: null})
+           setAuth({isAuthenticated: false, user:null})
             router.push("/");
         }catch(e:any){
             setError("ログアウトに失敗しました:");
