@@ -3,69 +3,83 @@ import { useRouter } from "next/router";
 import React, { useState } from "react";
 
 export function Form() {
+  const [title, setTitle] = useState("");
   const [question, setQuestion] = useState("");
-  const [errorMessage, setErrorMessage] = useState<string | null>(null); // エラーメッセージのstate
-  const [errorDetails, setErrorDetails] = useState<string | null>(null); // エラー詳細のstate
+  const [ifStatement, setIfStatement] = useState("");
+  const [error, setError] = useState<string | null>(null);
+
   const router = useRouter();
 
-  async function AiTextCreate(event: React.FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    setErrorMessage(null); // 送信するたびにエラーメッセージをクリア
-    setErrorDetails(null); // エラー詳細もクリア
+  async function AiTextCreate(title: string, question: string, ifStatement: string) {
+    setError(null);
 
     try {
-      await axiosInstance.post("/ai_texts", { question });
+      await axiosInstance.post("/ai_texts", { ai_text: { title, question, if_text: ifStatement } });
+      setTitle("");
       setQuestion("");
-      router.push("/success"); // 例: 成功時にリダイレクトしたい場合
+      setIfStatement("");
+      router.push("/ai");
     } catch (e: any) {
-      console.error(e);
-
-      // エラーレスポンスを取得して詳細を表示
-      if (e.response) {
-        setErrorMessage(`エラーが発生しました (ステータスコード: ${e.response.status})`);
-
-        // エラーメッセージが "You need to sign in or sign up before continuing." なら日本語で表示
-        if (e.response.data && e.response.data.errors) {
-          const errorText = e.response.data.errors[0];
-
-          if (errorText === "You need to sign in or sign up before continuing.") {
-            setErrorDetails("続行するにはログインまたは新規登録が必要です。");
-          } else {
-            setErrorDetails(errorText); // その他のエラーも表示
-          }
-        } else {
-          setErrorDetails("サーバーからのエラーデータがありません。");
-        }
+      if (e.response && e.response.data) {
+        // バックエンドからのエラーメッセージを表示
+        setError(e.response.data.messages.join(", ")); // 複数のエラーメッセージがある場合を考慮
       } else {
-        setErrorMessage("ネットワークエラーが発生しました。");
-        setErrorDetails("サーバーへの接続に失敗しました。");
+        setError("予期しないエラーが発生しました");
       }
     }
   }
 
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!title || !question || !ifStatement) {
+      setError("すべてのフィールドを入力してください");
+      return;
+    }
+    AiTextCreate(title, question, ifStatement);
+  };
+
   return (
     <>
-      <form onSubmit={AiTextCreate}>
+      {error && <p style={{ color: "red" }}>{error}</p>}
+      <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label>思い出</label>
-          <textarea
-            className="bg-gray-100"
-            value={question}
-            onChange={(e) => setQuestion(e.target.value)}
-          />
+          <label>
+            タイトル
+            <input
+              type="text"
+              placeholder="タイトル"
+              value={title}
+              onChange={e => setTitle(e.target.value)}
+              className="border p-2 w-full"
+            />
+          </label>
         </div>
-        <button type="submit" className="hover:text-blue-400">
-          創作
-        </button>
+        <div>
+          <label>
+            あなたのストーリー
+            <input
+              type="text"
+              placeholder="あなたのストーリーを350字以内で"
+              value={question}
+              onChange={e => setQuestion(e.target.value)}
+              className="border p-2 w-full"
+            />
+          </label>
+        </div>
+        <div>
+          <label>
+            もし
+            <input
+              type="text"
+              placeholder="IF"
+              value={ifStatement}
+              onChange={e => setIfStatement(e.target.value)}
+              className="border p-2 w-full inline"
+            />
+          </label>
+        </div>
+        <button type="submit" className="bg-blue-500 text-white p-2">投稿</button>
       </form>
-
-      {/* エラーメッセージがある場合に表示 */}
-      {errorMessage && (
-        <div className="text-red-500 mt-2">
-          <p>{errorMessage}</p>
-          {errorDetails && <p>詳細: {errorDetails}</p>} {/* エラー詳細も表示 */}
-        </div>
-      )}
     </>
   );
 }
