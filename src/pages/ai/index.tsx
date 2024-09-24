@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { TextType } from "@/types/TextType";
 import { axiosInstance } from "@/lib/axiosInstance";
-import { ShowIndex } from "@/components/AiIndex/ShowLink";
+import { IndexCard} from "@/components/AiIndex/ShowLink";
 
 export default function TextAll(){
     const [texts,setTexts] = useState<TextType[]>([])
@@ -24,13 +24,21 @@ export default function TextAll(){
 
     return(
         <>
-         <Link href="./ai/new" className="hover:text-blue-400 ">新しく作る</Link>
-         <div className="">
-            <h1>みんなの思いで</h1>
-           {texts.map((text)=>(
-            <ShowIndex text={text}/>
-           ))}
+        
+        <div className="">
+         <div className="flex flex-col justify-center items-center">
+         <Link href="./ai/new" className="button-49 my-6 w-[250px] sm:w-[400px] text-xl sm:text-2xl">新しく作る</Link>
+            <h1 className="memo w-[250px] sm:w-[400px] my-3 text-xl sm:text-2xl">みんなのおもいで</h1>
+
+            <div className="flex justify-center items-center">
+            </div>
+            <div className="flex-wrap bg-blue-50 flex ">
+             {texts.map((text)=>(
+                    <IndexCard text={text}/>
+             ))}
+            </div>
          </div>
+        </div>
         </>
     )
 }

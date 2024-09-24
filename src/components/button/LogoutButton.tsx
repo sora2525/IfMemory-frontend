@@ -29,10 +29,11 @@ export function LogoutButton(){
         e.preventDefault();
        Logout()
       };
+      
     return (
         <>
          {error && <p style={{ color: "red" }}>{error}</p>}
-        <button onClick={handleSubmit}>ログアウト</button>
+        <button onClick={handleSubmit} className="hover:text-blue-400 ext-base sm:text-xl lg:text-2xl">ログアウト</button>
         </>
     )
 }
