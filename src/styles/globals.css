@@ -71,3 +71,17 @@ body {
 	border-style: solid;
 	border-color: #27acd9 transparent transparent transparent;
 }
+
+.loader {
+  border: 8px solid rgba(255, 255, 255, 0.3); /* 背景色 */
+  border-left-color: #3498db; /* スピナーの色 */
+  border-radius: 50%;
+  width: 50px; /* スピナーのサイズ */
+  height: 50px; /* スピナーのサイズ */
+  animation: spin 1s linear infinite; /* アニメーション */
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

@@ -3,6 +3,7 @@ import { atom } from 'recoil';
 
 // ユーザー情報の型定義
 type User = {
+  id: number
   name: string;
   email: string;
 };

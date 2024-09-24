@@ -29,7 +29,7 @@ export function LogoutButton(){
         e.preventDefault();
        Logout()
       };
-      
+
     return (
         <>
          {error && <p style={{ color: "red" }}>{error}</p>}

@@ -8,7 +8,6 @@ interface IndexCardProps {
 
 export function IndexCard({ text }: IndexCardProps ) {
     return (
-
         <>
         <div className="w-[90%] sm:w-[45%] xl:w-[30%] m-3 bg-white rounded-xl ">
             <Link key={text.id} href={`./ai/${text.id}`}>
