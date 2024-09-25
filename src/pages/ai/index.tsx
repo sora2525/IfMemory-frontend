@@ -47,7 +47,7 @@ export default function TextAll() {
 
                     <div>
                         <Image
-                            src="/images/IMG_1836-removebg-preview.png" // public/images/IMG_1836.jpgへのパス
+                            src="/images/IMG_1836-removebg-preview.png" 
                             alt="画像の説明"
                             width={350} // 幅
                             height={300} // 高さ

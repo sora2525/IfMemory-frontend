@@ -49,27 +49,19 @@ export function Form() {
         {loading && (
           <div className="flex-col absolute top-0 left-0 right-0 bottom-0 flex items-center justify-center bg-white bg-opacity-50 z-10">
             <Image
-              src=""
+              className="rotating block" // ここにクラスを追加
+              src="/images/フェレット_-removebg-preview.png"
               alt="画像の説明"
-              width={250} // 幅
-              height={150} // 高さ
-              className="sm:w-[350px] xl:w-[400px]"
+              width={200}
+              height={150}
             />
-            <p className="text-[35px] block font-semibold ">読み込み中...</p>
+            <p className="text-2xl block font-bold">読み込み中...</p>
           </div>
         )}
 
-        
-        <div>
-          <Image
-            src="/images/IMG_1839-removebg-preview.png" // public/images/IMG_1836.jpgへのパス
-            alt="画像の説明"
-            width={250} // 幅
-            height={150} // 高さ
-            className="sm:w-[350px] xl:w-[400px]"
-          />
+        <div className="text-[30px] sm:text-[40px] xl:text-[50px] my-10 ">
+          <h1>新規投稿</h1>
         </div>
-
         <div className="m-10 p-10 flex flex-col justify-center bg-red-50 rounded-lg max-w-[900px] w-[90%]">
           {error && <p style={{ color: "red" }}>{error}</p>}
           <form onSubmit={handleSubmit}>
