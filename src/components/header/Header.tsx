@@ -3,13 +3,12 @@ import Link from "next/link";
 import { useRecoilValue } from "recoil";
 import { authState } from "@/atom/authAtom";
 import { LogoutButton } from "../button/LogoutButton";
-
 export function Header() {
     const auth = useRecoilValue(authState);
 
     return (
         <header className="bg-red-50">
-            <div className="  flex justify-between items-center py-4 px-6">
+            <div className="flex justify-between items-center py-4 px-6">
                 {/* ロゴ */}
                 <Link href="/">
                     <Image
@@ -35,6 +34,7 @@ export function Header() {
                     ) : (
                         <>
                             {/* 名前の表示とログアウトボタン */}
+                            
                             <p className="text-gray-800 hidden sm:block">
                                 ようこそ <span className="font-semibold text-base sm:text-xl lg:text-2xl">
                                     {auth.user?.name && auth.user.name.length > 8

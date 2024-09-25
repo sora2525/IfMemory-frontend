@@ -1,13 +1,19 @@
 import { axiosInstance } from "@/lib/axiosInstance";
 import React, { useState } from "react";
+import { useRouter } from "next/router";
+import Cookies from "js-cookie";
+import { useRecoilState } from "recoil";
+import { authState } from "@/atom/authAtom";
 
 export default function CreateUser() {
   const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const [passwordConfirmation, setPasswordConfirmation] = useState<string>(""); // 確認用パスワード
+  const [passwordConfirmation, setPasswordConfirmation] = useState<string>(""); 
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
+  const router = useRouter();
+  const [auth, setAuth] = useRecoilState(authState);
 
   const SignUp = async (name: string, email: string, password: string) => {
     try {
@@ -15,10 +21,27 @@ export default function CreateUser() {
         name: name,
         email: email,
         password: password,
-        password_confirmation: password, 
+        password_confirmation: password,
       });
-      setSuccess("ユーザー登録に成功しました！");
-      setError(null);
+
+      // サーバーからの認証情報を取得
+      const { "access-token": accessToken, client, uid } = response.headers;
+
+      if (accessToken && client && uid) {
+        // クッキーに保存
+        Cookies.set("access-token", accessToken, { expires: 7 });
+        Cookies.set("client", client, { expires: 7 });
+        Cookies.set("uid", uid, { expires: 7 });
+
+        // ログイン状態を更新
+        setAuth({ isAuthenticated: true, user: response.data.data });
+
+        setSuccess("ユーザー登録に成功しました！");
+        setError(null);
+
+        // ホームページへリダイレクト
+        router.push("/");
+      }
     } catch (e: any) {
       setError(e.response?.data?.errors?.[0] || "登録に失敗しました");
       setSuccess(null);
@@ -35,10 +58,12 @@ export default function CreateUser() {
       setError("パスワードが一致しません");
       return;
     }
+    if (password.length < 6) {
+      setError("パスワードは6文字以上である必要があります");
+      return;
+    }
     SignUp(name, email, password);
-    
   };
-
   return (
     <>
       <div className="flex flex-col items-center justify-center">
@@ -137,7 +162,7 @@ export default function CreateUser() {
                 </label>
               </div>
               <div className="flex justify-center">
-                <button type="submit" className="btn btn-active btn-accent text-white">登録</button>
+                <button type="submit" className="btn btn-active btn-accent text-white sm:text-lg xl:text-xl">登録</button>
               </div>
             </div>
           </form>

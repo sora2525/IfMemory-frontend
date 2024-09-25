@@ -68,7 +68,7 @@ export function Form() {
                     type="text"
                     id="title"
                     className="grow"
-                    placeholder="Title"
+                    placeholder="タイトル"
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}
                   />
@@ -94,7 +94,7 @@ export function Form() {
                   <textarea
                     className="textarea textarea-bordered pl-10 w-full"
                     id="story"
-                    placeholder="Story"
+                    placeholder="あなたの思い出を詳細に"
                     value={question}
                     onChange={(e) => setQuestion(e.target.value)} // 左側のパディングを追加
                   ></textarea>
@@ -111,14 +111,14 @@ export function Form() {
                     type="text"
                     id="if"
                     className="grow"
-                    placeholder="If"
+                    placeholder="もし○○だったら.."
                     value={ifStatement}
                     onChange={(e) => setIfStatement(e.target.value)}
                   />
                 </label>
               </div>
               <div className="flex justify-center">
-                <button type="submit" className="btn btn-active btn-accent text-white">投稿</button>
+                <button type="submit" className="btn btn-active btn-accent text-white sm:text-lg xl:text-xl">投稿</button>
               </div>
             </div>
           </form>

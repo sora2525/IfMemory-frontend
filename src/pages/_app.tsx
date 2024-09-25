@@ -5,6 +5,7 @@ import { RecoilRoot, useSetRecoilState } from "recoil";
 import { axiosInstance } from "@/lib/axiosInstance";
 import { authState } from "@/atom/authAtom";
 import { Header } from "@/components/header/Header";
+import { Roboto } from '@next/font/google';
 
 function MyApp({ Component, pageProps }: AppProps) {
   const setAuth = useSetRecoilState(authState);
@@ -33,7 +34,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 export default function App(props: AppProps) {
   return (
     <RecoilRoot>
-      <div className="bg-[#e0ffff] min-h-screen">
+      <div className="bg-[#e0ffff] min-h-screen " >
       <Header/>
         <MyApp {...props} />
       </div>

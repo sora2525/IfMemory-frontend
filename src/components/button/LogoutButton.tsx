@@ -5,6 +5,7 @@ import { useRecoilState } from "recoil";
 import { axiosInstance } from "@/lib/axiosInstance";
 import { authState } from "@/atom/authAtom";
 
+
 export function LogoutButton(){
     const[auth,setAuth] = useRecoilState(authState);
     console.log("Current user in LogoutButton:", );

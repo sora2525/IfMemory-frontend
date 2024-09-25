@@ -1,6 +1,11 @@
 import Link from "next/link";
 import { TextType } from "@/types/TextType";
+import { Kiwi_Maru } from 'next/font/google'
 
+const kiwi = Kiwi_Maru({
+    weight: '300',
+    preload: false,
+  })
 
 interface IndexCardProps {
     text: TextType; // textの型を指定
@@ -9,7 +14,7 @@ interface IndexCardProps {
 export function IndexCard({ text }: IndexCardProps ) {
     return (
         <>
-        <div className="w-[90%] sm:w-[45%] xl:w-[30%] m-3 bg-white rounded-xl ">
+        <div className={`${kiwi.className} w-[90%] sm:w-[45%] xl:w-[30%] m-3 bg-white rounded-xl`}>
             <Link key={text.id} href={`./ai/${text.id}`}>
                 <div className="card h-full">
                     <div className="card-body ">
