@@ -1,6 +1,4 @@
-import type { Config } from "tailwindcss";
-
-const config: Config = {
+const config = {
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
@@ -12,8 +10,13 @@ const config: Config = {
         background: "var(--background)",
         foreground: "var(--foreground)",
       },
+      fontFamily: {
+        raleway: ['Raleway', 'sans-serif'],  // 小文字で定義
+        zenMaru: ['Zen Maru Gothic', 'sans-serif'],  // 追加
+      },
     },
   },
-  plugins: [],
+  plugins: [require("daisyui")],
 };
+
 export default config;

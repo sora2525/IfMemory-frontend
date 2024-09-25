@@ -1,36 +1,70 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { AiTextType } from "../types/AiTextType";
+import { TextType } from "@/types/TextType";
+import { axiosInstance } from "@/lib/axiosInstance";
+import { IndexCard } from "@/components/AiIndex/IndexCard";
 
-export default function TextAll(){
-    const [texts,setTexts] = useState<AiTextType[]>([])
- 
-    async function  getAiTexts() {
-        try{
-           const res =  await axios.get<AiTextType[]>("http://localhost:3000/api/v1/ai_texts")
-           setTexts(res.data)
-        }catch(e){
+export default function TextAll() {
+    const [texts, setTexts] = useState<TextType[]>([]);
+    const [currentPage, setCurrentPage] = useState(1); // 現在のページ番号
+    const [totalPages, setTotalPages] = useState(1);   // 総ページ数
+
+    async function getTexts(page: number) {
+        try {
+            const res = await axiosInstance.get(`/ai_texts?page=${page}`);
+            setTexts(res.data.ai_texts);
+            setTotalPages(res.data.meta.total_pages); // 総ページ数を取得
+        } catch (e) {
             console.log(e);
-            
         }
     }
 
-    useEffect(()=>{
-        getAiTexts();
-    },[]);
+    useEffect(() => {
+        getTexts(currentPage); // 現在のページのデータを取得
+    }, [currentPage]);
 
-    return(
+    const handlePrevious = () => {
+        if (currentPage > 1) {
+            setCurrentPage(currentPage - 1);
+        }
+    };
+
+    const handleNext = () => {
+        if (currentPage < totalPages) {
+            setCurrentPage(currentPage + 1);
+        }
+    };
+
+    return (
         <>
-       <Link href="./ai/new" className="hover:text-blue-400">新しく作る</Link>
-          <h1>みんなの思いで</h1>
-           {texts.map((text)=>(
-            <Link  key={text.id} href={`./ai/${text.id}` }>
-              <div  key={text.id} className="bg-gray-200 mb-5">
-                  <h1 className="bg-blue-100">ストーリー:  {text.question}</h1>
-              </div>
-            </Link>
-           ))}
+            <div className="">
+                <div className="flex flex-col justify-center items-center">
+                    <Link href="./ai/new" className="button-49 my-6 w-[250px] sm:w-[400px] text-xl sm:text-2xl">
+                        新しく作る
+                    </Link>
+                    <h1 className="memo w-[250px] sm:w-[400px] my-3 text-xl sm:text-2xl">みんなのおもいで</h1>
+
+                    <div className="flex flex-wrap justify-between bg-blue-50 px-[20px] py-[10px] w-[90%]">
+                        {texts.map((text) => (
+                            <IndexCard key={text.id} text={text} />
+                        ))}
+                    </div>
+
+                    {/* ページネーションコントロール */}
+
+                    <div className="pagination-controls my-4 flex items-center justify-between w-[70%] sm:[50%]  max-w-[600px] mt-[40px] mb-[40px]">
+                        <button onClick={handlePrevious} disabled={currentPage === 1} className="button-49-reverse mx-2 sm:text-lg ">
+                            前へ
+                        </button>
+                        <span className="text-xl hidden sm:block">ページ {currentPage} / {totalPages}</span>
+                        <button onClick={handleNext} disabled={currentPage === totalPages} className="button-49 mx-2 sm:text-lg">
+                            次へ
+                        </button>
+                    </div>
+                    <div className="text-xl sm:hidden sm:hiden">ページ {currentPage} / {totalPages}</div>
+                </div>
+            </div>
         </>
-    )
+    );
 }
