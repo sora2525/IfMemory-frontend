@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import Cookies from "js-cookie";
 import { useRecoilState } from "recoil";
 import { authState } from "@/atom/authAtom";
+import Image from "next/image";
 
 export default function CreateUser() {
   const [name, setName] = useState<string>("");
@@ -67,9 +68,15 @@ export default function CreateUser() {
   return (
     <>
       <div className="flex flex-col items-center justify-center">
-        <div className="text-[30px] sm:text-[40px] xl:text-[50px] my-10 ">
-          <h1>ユーザー新規登録</h1>
-        </div>
+        <div>
+        <Image
+          src="/images/IMG_1838-removebg-preview.png" // public/images/IMG_1836.jpgへのパス
+          alt="画像の説明"
+          width={250} // 幅
+          height={150} // 高さ
+          className="sm:w-[350px] xl:w-[400px]"
+        />
+      </div>
         {error && <p style={{ color: "red" }}>{error}</p>}
         {success && <p style={{ color: "green" }}>{success}</p>}
         <div className="m-10 p-10 flex flex-col justify-center bg-red-50 rounded-lg max-w-[900px] w-[90%]">

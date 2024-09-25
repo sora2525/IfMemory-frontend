@@ -9,14 +9,15 @@ import { authState } from "@/atom/authAtom";
 import { useRecoilValue } from "recoil";
 import { Kiwi_Maru } from 'next/font/google'
 import { FaXTwitter } from "react-icons/fa6";
+import Image from "next/image";
 
 const kiwi = Kiwi_Maru({
     weight: '300',
     preload: false,
-  })
+})
 
 export default function ShowAi() {
-    
+
     const [text, setText] = useState<TextType | null>(null);
     const router = useRouter();
     const auth = useRecoilValue(authState);
@@ -50,54 +51,60 @@ export default function ShowAi() {
     };
 
     return (
-
         <>
-      
-        <div className={kiwi.className}></div>
-        <div className="min-h-screen flex flex-col items-center justify-center p-4">
-            <div className="bg-white shadow-lg rounded-lg p-6 max-w-2xl w-full">
-                <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-center mb-4">{text?.title}</h1>
+            <div className={kiwi.className}></div>
+            <div className=" flex flex-col items-center justify-center p-4 mt-[35px]">
+                <div className="mr-[50%]">
+                    <Image
+                        src="/images/フェレット_-removebg-preview (1).png" // public/images/IMG_1836.jpgへのパス
+                        alt="画像の説明"
+                        width={200} // 幅
+                        height={150} // 高さ
+                    />
+                </div>
+                <div className="bg-white shadow-lg rounded-lg p-6 max-w-2xl w-full">
+                    <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-center mb-4">{text?.title}</h1>
 
-                {text ? (
-                    <>
-                        <p className="text-gray-600 mb-2 text-center text-lg md:text-xl lg:text-2xl">語りびと: {text.user.name}</p>
+                    {text ? (
+                        <>
+                            <p className="text-gray-600 mb-2 text-center text-lg md:text-xl lg:text-2xl">語りびと: {text.user.name}</p>
 
-                        <div key={text.id} className={`${kiwi.className} mb-4`}>
-                            <h2 className="text-xl md:text-2xl lg:text-3xl font-semibold mb-2">{text.user.name}のストーリー:</h2>
-                            <p className="border-l-4 border-blue-500 pl-4 text-gray-700 text-base md:text-lg lg:text-xl">
-                                {text.question}
-                            </p>
-                            <h2 className="text-xl md:text-2xl lg:text-3xl font-semibold mt-4">新たなストーリー: &nbsp;&nbsp;&nbsp; {text.if_text}</h2>
-                            <p className="border-l-4 border-green-500 pl-4 text-gray-700 text-base md:text-lg lg:text-xl ">
-                                {text.answer}
-                            </p>
-                        </div>
-                        {auth.user && text.user.id === auth.user.id && (
-                            <div className="flex ml-5 mt-4">
-                                <DeleteButton id={text.id} onDelete={handleDelete} /> {/* 削除ボタン */}
+                            <div key={text.id} className={`${kiwi.className} mb-4`}>
+                                <h2 className="text-xl md:text-2xl lg:text-3xl font-semibold mb-2">{text.user.name}のストーリー:</h2>
+                                <p className="border-l-4 border-blue-500 pl-4 text-gray-700 text-base md:text-lg lg:text-xl">
+                                    {text.question}
+                                </p>
+                                <h2 className="text-xl md:text-2xl lg:text-3xl font-semibold mt-4">新たなストーリー: &nbsp;&nbsp;&nbsp; {text.if_text}</h2>
+                                <p className="border-l-4 border-green-500 pl-4 text-gray-700 text-base md:text-lg lg:text-xl ">
+                                    {text.answer}
+                                </p>
                             </div>
-                        )}
-                        {/* Xへの共有ボタン */}
-                        <div className="flex justify-center mt-4">
-                            <a
-                                href={createShareLink()}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-400 flex items-center"
-                            >
-                                  <FaXTwitter className="inline text-[22px]"/><span className="text-lg">で新たな思い出を共有</span>
-                            </a>
-                        </div>
-                    </>
-                ) : (
-                    <p className="text-gray-500 text-center text-lg md:text-xl">データを読み込み中...</p>
-                )}
+                            {auth.user && text.user.id === auth.user.id && (
+                                <div className="flex ml-5 mt-4">
+                                    <DeleteButton id={text.id} onDelete={handleDelete} /> {/* 削除ボタン */}
+                                </div>
+                            )}
+                            {/* Xへの共有ボタン */}
+                            <div className="flex justify-center mt-4">
+                                <a
+                                    href={createShareLink()}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-400 flex items-center"
+                                >
+                                    <FaXTwitter className="inline text-[22px]" /><span className="text-lg">で新たな思い出を共有</span>
+                                </a>
+                            </div>
+                        </>
+                    ) : (
+                        <p className="text-gray-500 text-center text-lg md:text-xl">データを読み込み中...</p>
+                    )}
 
-                <Link href="./" className="block text-center mt-6 text-blue-600 hover:text-blue-400 text-lg md:text-xl">
-                    一覧へ戻る
-                </Link>
+                    <Link href="./" className="block text-center mt-6 text-blue-600 hover:text-blue-400 text-lg md:text-xl">
+                        一覧へ戻る
+                    </Link>
+                </div>
             </div>
-        </div>
         </>
     );
 }
