@@ -27,7 +27,7 @@ export default function LoginUser() {
     <div className="flex flex-col items-center justify-center">
       <div>
         <Image
-          src="/images/IMG_1837-removebg-preview.png" // public/images/IMG_1836.jpgへのパス
+          src="/images/IMG_1837-removebg-preview.png" 
           alt="画像の説明"
           width={250} // 幅
           height={150} // 高さ

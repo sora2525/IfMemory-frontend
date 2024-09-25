@@ -59,8 +59,16 @@ export function Form() {
           </div>
         )}
 
-        <div className="text-[30px] sm:text-[40px] xl:text-[50px] my-10 ">
-          <h1>新規投稿</h1>
+        
+
+        <div>
+          <Image
+            src="/images/IMG_1839-removebg-preview.png" 
+            alt="画像の説明"
+            width={250} // 幅
+            height={150} // 高さ
+            className="sm:w-[350px] xl:w-[400px]"
+          />
         </div>
         <div className="m-10 p-10 flex flex-col justify-center bg-red-50 rounded-lg max-w-[900px] w-[90%]">
           {error && <p style={{ color: "red" }}>{error}</p>}
