@@ -41,7 +41,7 @@ export default function TextAll() {
         <>
             <div className="">
                 <div className="flex flex-col justify-center items-center">
-                    <Link href="./ai/new" className="button-49 my-6 w-[250px] sm:w-[400px] text-xl sm:text-2xl">
+                    <Link href="./memory/new" className="button-49 my-6 w-[250px] sm:w-[400px] text-xl sm:text-2xl">
                         新しく作る
                     </Link>
 

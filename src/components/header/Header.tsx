@@ -24,10 +24,10 @@ export function Header() {
                 <div className="flex items-center space-x-4 ">
                     {!auth.isAuthenticated ? (
                         <>
-                            <Link href="/user/sign_in" className="hover:text-blue-400 text-base sm:text-xl lg:text-2xl">
+                            <Link href="/sign_in" className="hover:text-blue-400 text-base sm:text-xl lg:text-2xl">
                                 ログイン
                             </Link>
-                            <Link href="/user/sign_up" className="hover:text-blue-400 text-base sm:text-xl lg:text-2xl">
+                            <Link href="/sign_up" className="hover:text-blue-400 text-base sm:text-xl lg:text-2xl">
                                 新規登録
                             </Link>
                         </>

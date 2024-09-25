@@ -11,7 +11,7 @@ export default function CreateAi() {
     useEffect(() => {
         if (!auth.isAuthenticated) {
             // 未認証の場合はログインページへ
-            router.push("/user/sign_in");
+            router.push("/sign_in");
         }
     }, [auth.isAuthenticated, router]);
 

@@ -22,7 +22,7 @@ export function Form() {
       setTitle("");
       setQuestion("");
       setIfStatement("");
-      await router.push(`/ai/${aiTextId}`);
+      await router.push(`/memory/${aiTextId}`);
     } catch (e: any) {
       if (e.response && e.response.data) {
         setError(e.response.data.messages.join(", "));
@@ -58,8 +58,6 @@ export function Form() {
             <p className="text-2xl block font-bold">読み込み中...</p>
           </div>
         )}
-
-        
 
         <div>
           <Image
