@@ -10,14 +10,18 @@ export default function LoginUser() {
     password,
     setPassword,
     error,
+    setError,
     success,
+    loading, // 追加
     login,
   } = useLogin();
+
+
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!email || !password) {
-      alert("すべてのフィールドを入力してください");
+      setError("すべてのフィールドを入力してください")
       return;
     }
     login();
@@ -27,15 +31,25 @@ export default function LoginUser() {
     <div className="flex flex-col items-center justify-center">
       <div>
         <Image
-          src="/images/IMG_1837-removebg-preview.png" 
+          src="/images/IMG_1837-removebg-preview.png"
           alt="画像の説明"
-          width={250} // 幅
-          height={150} // 高さ
+          width={250}
+          height={150}
           className="sm:w-[350px] xl:w-[400px]"
         />
       </div>
       {error && <p style={{ color: "red" }}>{error}</p>}
       {success && <p style={{ color: "green" }}>{success}</p>}
+      {loading && <div className="flex-col absolute top-0 left-0 right-0 bottom-0 flex items-center justify-center bg-white bg-opacity-50 z-10 ">
+        <Image
+          className="rotating block" // ここにクラスを追加
+          src="/images/フェレット_-removebg-preview.png"
+          alt="画像の説明"
+          width={200}
+          height={150}
+        />
+        <p className="text-2xl block font-bold">ログイン中...</p>
+      </div>} {/* 読み込み中メッセージ */}
       <div className="m-10 p-10 flex flex-col justify-center bg-red-50 rounded-lg max-w-[900px] w-[90%]">
         <form onSubmit={handleSubmit}>
           <div className="flex flex-col justify-center w-9/10">

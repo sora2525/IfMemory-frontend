@@ -10,12 +10,13 @@ const useLogin = () => {
   const [password, setPassword] = useState<string>("");
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>(false); // loading状態を追加
   const [, setAuth] = useRecoilState(authState); // authを未使用のため、配列の最初の要素を無視
   const router = useRouter();
 
   const handleError = (e: unknown) => {
+    // エラーハンドリングのロジックはそのまま
     if (e instanceof Error) {
-      // Error型として扱う場合
       setError("エラーが発生しました");
     } else if (typeof e === "object" && e !== null && "response" in e) {
       const response = (e as { response?: { status?: number; data?: { errors?: string[] } } });
@@ -40,6 +41,7 @@ const useLogin = () => {
   };
 
   const login = async () => {
+    setLoading(true); // ログイン処理開始前に読み込み中を設定
     try {
       const response = await axiosInstance.post("/auth/sign_in", { email, password });
       const { "access-token": accessToken, client, uid } = response.headers;
@@ -58,6 +60,7 @@ const useLogin = () => {
     } catch (e: unknown) {
       handleError(e);
     } finally {
+      setLoading(false); // 処理終了後に読み込み中を解除
       setEmail("");
       setPassword("");
     }
@@ -69,7 +72,9 @@ const useLogin = () => {
     password,
     setPassword,
     error,
+    setError,
     success,
+    loading, // 追加
     login,
   };
 };

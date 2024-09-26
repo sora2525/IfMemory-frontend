@@ -36,7 +36,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 export default function App(props: AppProps) {
   return (
     <>
-    <Head>
+      <Head>
         <title>ifメモ</title>
         <meta property="og:title" content="ifメモ" />
         <meta property="og:description" content="ユーザーの思い出のifの世界線を見せてくれるアプリ" />
@@ -47,12 +47,12 @@ export default function App(props: AppProps) {
         <meta name='twitter:description' content='ユーザーの思い出のifの世界線を見せてくれるアプリ' />
         <meta name='twitter:image' content='https://if-memory.vercel.app/images/metaLog.png' />
       </Head>
-    <RecoilRoot>
-      <div className="bg-[#e0ffff] min-h-screen">
-        <Header />
-        <MyApp {...props} />
-      </div>
-    </RecoilRoot>
+      <RecoilRoot>
+        <div className="bg-[#e0ffff] min-h-screen">
+          <Header />
+          <MyApp {...props} />
+        </div>
+      </RecoilRoot>
     </>
   );
 }
