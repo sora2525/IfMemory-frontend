@@ -47,7 +47,7 @@ export function Form() {
     <>
       <div className="flex flex-col items-center justify-center relative">
         {loading && (
-          <div className="flex-col absolute top-0 left-0 right-0 bottom-0 flex items-center justify-center bg-white bg-opacity-50 z-10">
+          <div className="flex-col absolute top-0 left-0 right-0 bottom-0 flex items-center justify-center bg-white bg-opacity-50 z-10 ">
             <Image
               className="rotating block" // ここにクラスを追加
               src="/images/フェレット_-removebg-preview.png"

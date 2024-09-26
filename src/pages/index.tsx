@@ -1,14 +1,13 @@
 import Link from 'next/link';
 import { useRecoilValue } from 'recoil';
-import { LogoutButton } from '@/components/button/LogoutButton';
 import { authState } from '@/atom/authAtom';
 import Image from 'next/image';
-import {Gothic_A1} from 'next/font/google'
-
+import { Gothic_A1 } from 'next/font/google'
+import Head from 'next/head';
 
 const gothic = Gothic_A1({
   weight: '300',
-  subsets: ['latin'], 
+  subsets: ['latin'],
 })
 
 
@@ -17,6 +16,18 @@ export default function Home() {
 
   return (
     <>
+
+      <Head>
+        <title>あなたのサイトのタイトル</title>
+        <meta property="og:title" content="ifメモ" />
+        <meta property="og:description" content="ユーザーの思い出のifの世界線を見せてくれるアプリ" />
+        <meta property="og:image" content="/images/metaLog.png" />
+        <meta property="og:url" content="" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name='twitter:title' content='ifメモ' />
+        <meta name='twitter:description' content='ユーザーの思い出のifの世界線を見せてくれるアプリ' />
+        <meta name='twitter:image' content='/images/metaLog.png' />
+      </Head>
       <div className='flex flex-col items-center justify-center'>
 
         <div className="flex items-center justify-center  mt-[50px]">
@@ -25,7 +36,6 @@ export default function Home() {
             alt="Top Image"
             width={300}
             height={200}
-            layout="intrinsic"
             className="sm:w-[500px] lg:w-[600px]"
           />
         </div>
