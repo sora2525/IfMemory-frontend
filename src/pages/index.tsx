@@ -1,7 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { Gothic_A1 } from 'next/font/google'
-import Head from 'next/head';
 
 const gothic = Gothic_A1({
   weight: '300',
@@ -13,18 +12,6 @@ export default function Home() {
 
   return (
     <>
-      <Head>
-        <title>ifメモ</title>
-        <meta property="og:title" content="ifメモ" />
-        <meta property="og:description" content="ユーザーの思い出のifの世界線を見せてくれるアプリ" />
-        <meta property="og:image" content="/images/metaLog.png" />
-        <meta property="og:url" content="https://if-memory.vercel.app/" />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name='twitter:title' content='ifメモ' />
-        <meta name='twitter:description' content='ユーザーの思い出のifの世界線を見せてくれるアプリ' />
-        <meta name='twitter:image' content='https://if-memory.vercel.app/images/metaLog.png' />
-      </Head>
-
       <div className='flex flex-col items-center justify-center'>
 
         <div className="flex items-center justify-center  mt-[50px]">

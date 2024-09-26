@@ -5,6 +5,7 @@ import { RecoilRoot, useSetRecoilState } from "recoil";
 import { axiosInstance } from "@/lib/axiosInstance";
 import { authState } from "@/atom/authAtom";
 import { Header } from "@/components/header/Header";
+import Head from 'next/head';
 
 function MyApp({ Component, pageProps }: AppProps) {
   const setAuth = useSetRecoilState(authState);
@@ -34,11 +35,24 @@ function MyApp({ Component, pageProps }: AppProps) {
 
 export default function App(props: AppProps) {
   return (
+    <>
+    <Head>
+        <title>ifメモ</title>
+        <meta property="og:title" content="ifメモ" />
+        <meta property="og:description" content="ユーザーの思い出のifの世界線を見せてくれるアプリ" />
+        <meta property="og:image" content="/images/metaLog.png" />
+        <meta property="og:url" content="https://if-memory.vercel.app/" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name='twitter:title' content='ifメモ' />
+        <meta name='twitter:description' content='ユーザーの思い出のifの世界線を見せてくれるアプリ' />
+        <meta name='twitter:image' content='https://if-memory.vercel.app/images/metaLog.png' />
+      </Head>
     <RecoilRoot>
       <div className="bg-[#e0ffff] min-h-screen">
         <Header />
         <MyApp {...props} />
       </div>
     </RecoilRoot>
+    </>
   );
 }
