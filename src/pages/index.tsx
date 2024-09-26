@@ -16,9 +16,8 @@ export default function Home() {
 
   return (
     <>
-
       <Head>
-        <title>あなたのサイトのタイトル</title>
+        <title>ifメモ</title>
         <meta property="og:title" content="ifメモ" />
         <meta property="og:description" content="ユーザーの思い出のifの世界線を見せてくれるアプリ" />
         <meta property="og:image" content="/images/metaLog.png" />
@@ -28,6 +27,7 @@ export default function Home() {
         <meta name='twitter:description' content='ユーザーの思い出のifの世界線を見せてくれるアプリ' />
         <meta name='twitter:image' content='/images/metaLog.png' />
       </Head>
+
       <div className='flex flex-col items-center justify-center'>
 
         <div className="flex items-center justify-center  mt-[50px]">

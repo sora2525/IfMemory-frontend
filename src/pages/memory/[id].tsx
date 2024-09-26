@@ -1,4 +1,3 @@
-import axios from "axios";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { TextType } from "../../types/TextType";
@@ -33,10 +32,9 @@ export default function ShowAi() {
         }
     }
     useEffect(() => {
-        if (id) {
-            getAiText();
-        }
-    }, [id]);
+        getAiText();
+    }, [getAiText]); 
+    
 
     const handleDelete = () => {
         router.push("./"); // 削除後に一覧ページにリダイレクト

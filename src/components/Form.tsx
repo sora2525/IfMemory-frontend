@@ -18,7 +18,7 @@ export function Form() {
     try {
       const res = await axiosInstance.post("/ai_texts", { ai_text: { title, question, if_text: ifStatement } });
       console.log(res.data);
-      const aiTextId = res.data.id;
+      const aiTextId:any = res.data.id;
       setTitle("");
       setQuestion("");
       setIfStatement("");
