@@ -18,11 +18,11 @@ export default function Home() {
         <meta property="og:title" content="ifメモ" />
         <meta property="og:description" content="ユーザーの思い出のifの世界線を見せてくれるアプリ" />
         <meta property="og:image" content="/images/metaLog.png" />
-        <meta property="og:url" content="" />
+        <meta property="og:url" content="https://if-memory.vercel.app/" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name='twitter:title' content='ifメモ' />
         <meta name='twitter:description' content='ユーザーの思い出のifの世界線を見せてくれるアプリ' />
-        <meta name='twitter:image' content='/images/metaLog.png' />
+        <meta name='twitter:image' content='https://if-memory.vercel.app/images/metaLog.png' />
       </Head>
 
       <div className='flex flex-col items-center justify-center'>
