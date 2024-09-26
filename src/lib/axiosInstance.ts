@@ -2,7 +2,7 @@ import axios from "axios";
 import Cookies from "js-cookie";
 
 export const axiosInstance = axios.create({
-    baseURL: "https://if-memory.onrender.com/api/v1"
+    baseURL: "https://ifmemory-backend.onrender.com/api/v1"
 })
 
 axiosInstance.interceptors.request.use(
