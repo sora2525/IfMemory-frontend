@@ -4,16 +4,19 @@ import { useRouter } from "next/router";
 import Cookies from "js-cookie";
 import { useRecoilState } from "recoil";
 import { authState } from "@/atom/authAtom";
+import axios from "axios";  // AxiosError をインポート
+import Image from 'next/image';
+
 
 export default function CreateUser() {
   const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const [passwordConfirmation, setPasswordConfirmation] = useState<string>(""); 
+  const [passwordConfirmation, setPasswordConfirmation] = useState<string>("");
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
   const router = useRouter();
-  const [auth, setAuth] = useRecoilState(authState);
+  const [, setAuth] = useRecoilState(authState);
 
   const SignUp = async (name: string, email: string, password: string) => {
     try {
@@ -24,26 +27,26 @@ export default function CreateUser() {
         password_confirmation: password,
       });
 
-      // サーバーからの認証情報を取得
       const { "access-token": accessToken, client, uid } = response.headers;
 
       if (accessToken && client && uid) {
-        // クッキーに保存
         Cookies.set("access-token", accessToken, { expires: 7 });
         Cookies.set("client", client, { expires: 7 });
         Cookies.set("uid", uid, { expires: 7 });
 
-        // ログイン状態を更新
         setAuth({ isAuthenticated: true, user: response.data.data });
 
         setSuccess("ユーザー登録に成功しました！");
         setError(null);
 
-        // ホームページへリダイレクト
         router.push("/");
       }
-    } catch (e: any) {
-      setError(e.response?.data?.errors?.[0] || "登録に失敗しました");
+    } catch (e: unknown) {  // any を unknown に変更
+      if (axios.isAxiosError(e)) {  // Axios エラーであるかを確認
+        setError(e.response?.data?.errors?.[0] || "登録に失敗しました");
+      } else {
+        setError("登録に失敗しました");
+      }
       setSuccess(null);
     }
   };
@@ -64,11 +67,18 @@ export default function CreateUser() {
     }
     SignUp(name, email, password);
   };
+
   return (
     <>
       <div className="flex flex-col items-center justify-center">
-        <div className="text-[30px] sm:text-[40px] xl:text-[50px] my-10 ">
-          <h1>ユーザー新規登録</h1>
+        <div>
+          <Image
+            src="/images/IMG_1838-removebg-preview.png" 
+            alt="画像の説明"
+            width={250} // 幅
+            height={150} // 高さ
+            className="sm:w-[350px] xl:w-[400px]"
+          />
         </div>
         {error && <p style={{ color: "red" }}>{error}</p>}
         {success && <p style={{ color: "green" }}>{success}</p>}

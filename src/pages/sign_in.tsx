@@ -1,6 +1,7 @@
 // components/LoginUser.tsx
 import React from "react";
 import useLogin from "@/hooks/useLogin";
+import Image from "next/image";
 
 export default function LoginUser() {
   const {
@@ -24,8 +25,14 @@ export default function LoginUser() {
 
   return (
     <div className="flex flex-col items-center justify-center">
-      <div className="text-[30px] sm:text-[40px] xl:text-[50px] my-10 ">
-        <h1>ログイン</h1>
+      <div>
+        <Image
+          src="/images/IMG_1837-removebg-preview.png" 
+          alt="画像の説明"
+          width={250} // 幅
+          height={150} // 高さ
+          className="sm:w-[350px] xl:w-[400px]"
+        />
       </div>
       {error && <p style={{ color: "red" }}>{error}</p>}
       {success && <p style={{ color: "green" }}>{success}</p>}

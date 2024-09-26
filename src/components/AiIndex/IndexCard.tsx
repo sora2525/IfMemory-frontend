@@ -15,7 +15,7 @@ export function IndexCard({ text }: IndexCardProps ) {
     return (
         <>
         <div className={`${kiwi.className} w-[90%] sm:w-[45%] xl:w-[30%] m-3 bg-white rounded-xl`}>
-            <Link key={text.id} href={`./ai/${text.id}`}>
+            <Link key={text.id} href={`./memory/${text.id}`}>
                 <div className="card h-full">
                     <div className="card-body ">
                         <div className="card-actions justify-end flex flex-col border-l-4 border-blue-200 pl-4 text-gray-700">
