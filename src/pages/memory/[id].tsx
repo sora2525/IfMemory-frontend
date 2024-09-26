@@ -6,39 +6,39 @@ import { axiosInstance } from "@/lib/axiosInstance";
 import DeleteButton from "@/components/button/DeleteButton";
 import { authState } from "@/atom/authAtom";
 import { useRecoilValue } from "recoil";
-import { Kiwi_Maru } from 'next/font/google'
+import { Kiwi_Maru } from 'next/font/google';
 import { FaXTwitter } from "react-icons/fa6";
 import Image from "next/image";
 
 const kiwi = Kiwi_Maru({
     weight: '300',
     preload: false,
-})
+});
 
 export default function ShowAi() {
-
     const [text, setText] = useState<TextType | null>(null);
     const router = useRouter();
     const auth = useRecoilValue(authState);
-
     const { id } = router.query;
 
-    async function getAiText() {
-        try {
-            const res = await axiosInstance.get(`/ai_texts/${id}`);
-            setText(res.data);
-        } catch (e) {
-            console.log(e);
-        }
-    }
     useEffect(() => {
-        getAiText();
-    }, [getAiText]); 
-    
+        const getAiText = async () => {
+            if (!id) return; // idが未定義の場合は早期リターン
+            try {
+                const res = await axiosInstance.get(`/ai_texts/${id}`);
+                setText(res.data);
+            } catch (e) {
+                console.log(e);
+            }
+        };
+        
+        getAiText(); // getAiText関数を呼び出す
+    }, [id]); // idを依存配列に追加
 
     const handleDelete = () => {
         router.push("./"); // 削除後に一覧ページにリダイレクト
     };
+
     // Xへの共有リンクを生成する関数
     const createShareLink = () => {
         if (!text) return '';
@@ -51,13 +51,13 @@ export default function ShowAi() {
     return (
         <>
             <div className={kiwi.className}></div>
-            <div className=" flex flex-col items-center justify-center p-4 mt-[35px]">
+            <div className="flex flex-col items-center justify-center p-4 mt-[35px]">
                 <div className="mr-[50%]">
                     <Image
-                        src="/images/フェレット_-removebg-preview (1).png" // public/images/IMG_1836.jpgへのパス
+                        src="/images/フェレット_-removebg-preview (1).png"
                         alt="画像の説明"
-                        width={200} // 幅
-                        height={150} // 高さ
+                        width={200}
+                        height={150}
                     />
                 </div>
                 <div className="bg-white shadow-lg rounded-lg p-6 max-w-2xl w-full">
@@ -66,23 +66,21 @@ export default function ShowAi() {
                     {text ? (
                         <>
                             <p className="text-gray-600 mb-2 text-center text-lg md:text-xl lg:text-2xl">語りびと: {text.user.name}</p>
-
                             <div key={text.id} className={`${kiwi.className} mb-4`}>
                                 <h2 className="text-xl md:text-2xl lg:text-3xl font-semibold mb-2">{text.user.name}のストーリー:</h2>
                                 <p className="border-l-4 border-blue-500 pl-4 text-gray-700 text-base md:text-lg lg:text-xl">
                                     {text.question}
                                 </p>
                                 <h2 className="text-xl md:text-2xl lg:text-3xl font-semibold mt-4">新たなストーリー: &nbsp;&nbsp;&nbsp; {text.if_text}</h2>
-                                <p className="border-l-4 border-green-500 pl-4 text-gray-700 text-base md:text-lg lg:text-xl ">
+                                <p className="border-l-4 border-green-500 pl-4 text-gray-700 text-base md:text-lg lg:text-xl">
                                     {text.answer}
                                 </p>
                             </div>
                             {auth.user && text.user.id === auth.user.id && (
                                 <div className="flex ml-5 mt-4">
-                                    <DeleteButton id={text.id} onDelete={handleDelete} /> {/* 削除ボタン */}
+                                    <DeleteButton id={text.id} onDelete={handleDelete} />
                                 </div>
                             )}
-                            {/* Xへの共有ボタン */}
                             <div className="flex justify-center mt-4">
                                 <a
                                     href={createShareLink()}

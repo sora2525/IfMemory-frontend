@@ -2,6 +2,7 @@ import { axiosInstance } from "@/lib/axiosInstance";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import Image from "next/image";
+import { AxiosError } from 'axios';
 
 export function Form() {
   const [title, setTitle] = useState("");
@@ -11,21 +12,32 @@ export function Form() {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
+  interface ApiResponse {
+    id: number;
+    messages?: string[]; // messagesがある場合、配列として定義
+  }
+
   async function AiTextCreate(title: string, question: string, ifStatement: string) {
     setError(null);
     setLoading(true);
 
     try {
-      const res = await axiosInstance.post("/ai_texts", { ai_text: { title, question, if_text: ifStatement } });
+      const res = await axiosInstance.post<ApiResponse>("/ai_texts", { ai_text: { title, question, if_text: ifStatement } });
       console.log(res.data);
-      const aiTextId:any = res.data.id;
+      const aiTextId: number = res.data.id;
       setTitle("");
       setQuestion("");
       setIfStatement("");
       await router.push(`/memory/${aiTextId}`);
-    } catch (e: any) {
-      if (e.response && e.response.data) {
-        setError(e.response.data.messages.join(", "));
+    } catch (e) {
+      const error = e as AxiosError;
+      if (error.response && error.response.data) {
+        const responseData = error.response.data as ApiResponse; // ここでApiResponse型にキャスト
+        if (responseData.messages) {
+          setError(responseData.messages.join(", "));
+        } else {
+          setError("エラーメッセージがありません");
+        }
       } else {
         setError("予期しないエラーが発生しました");
       }

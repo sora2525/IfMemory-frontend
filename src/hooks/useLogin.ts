@@ -1,4 +1,3 @@
-// hooks/useLogin.ts
 import { useState } from "react";
 import Cookies from "js-cookie";
 import { useRouter } from "next/router";
@@ -11,25 +10,31 @@ const useLogin = () => {
   const [password, setPassword] = useState<string>("");
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
-  const [auth, setAuth] = useRecoilState(authState);
+  const [, setAuth] = useRecoilState(authState); // authを未使用のため、配列の最初の要素を無視
   const router = useRouter();
 
-  const handleError = (e: any) => {
-    if (e.response) {
-      switch (e.response.status) {
-        case 401:
-          setError("メールアドレスまたはパスワードが間違っています");
-          break;
-        case 400:
-          setError("無効なリクエストです");
-          break;
-        default:
-          setError(e.response.data?.errors?.[0] || "不明なエラーが発生しました");
-      }
-    } else if (e.request) {
-      setError("サーバーからの応答がありません");
-    } else {
+  const handleError = (e: unknown) => {
+    if (e instanceof Error) {
+      // Error型として扱う場合
       setError("エラーが発生しました");
+    } else if (typeof e === "object" && e !== null && "response" in e) {
+      const response = (e as { response?: { status?: number; data?: { errors?: string[] } } });
+      if (response.response) {
+        switch (response.response.status) {
+          case 401:
+            setError("メールアドレスまたはパスワードが間違っています");
+            break;
+          case 400:
+            setError("無効なリクエストです");
+            break;
+          default:
+            setError(response.response.data?.errors?.[0] || "不明なエラーが発生しました");
+        }
+      } else if ("request" in e) {
+        setError("サーバーからの応答がありません");
+      }
+    } else {
+      setError("不明なエラーが発生しました");
     }
     setSuccess(null);
   };
@@ -50,7 +55,7 @@ const useLogin = () => {
         setError(null);
         router.push("/");
       }
-    } catch (e: any) {
+    } catch (e: unknown) {
       handleError(e);
     } finally {
       setEmail("");

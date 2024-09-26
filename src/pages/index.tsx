@@ -1,6 +1,4 @@
 import Link from 'next/link';
-import { useRecoilValue } from 'recoil';
-import { authState } from '@/atom/authAtom';
 import Image from 'next/image';
 import { Gothic_A1 } from 'next/font/google'
 import Head from 'next/head';
@@ -12,7 +10,6 @@ const gothic = Gothic_A1({
 
 
 export default function Home() {
-  const auth = useRecoilValue(authState);
 
   return (
     <>
