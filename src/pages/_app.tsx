@@ -39,12 +39,12 @@ export default function App(props: AppProps) {
       <Head>
         <title>ifメモ</title>
         <meta property="og:title" content="ifメモ" />
-        <meta property="og:description" content="ユーザーの思い出のifの世界線を見せてくれるアプリ" />
+        <meta property="og:description" content="思い出のもしもをAIが見せてくれるアプリ" />
         <meta property="og:image" content="https://if-memory.vercel.app/images/metaLog.png" />
         <meta property="og:url" content="https://if-memory.vercel.app/" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name='twitter:title' content='ifメモ' />
-        <meta name='twitter:description' content='ユーザーの思い出のifの世界線を見せてくれるアプリ' />
+        <meta name='twitter:description' content='思い出のもしもをAIが見せてくれるアプリ' />
       </Head>
       <RecoilRoot>
         <div className="bg-[#e0ffff] min-h-screen">

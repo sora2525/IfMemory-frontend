@@ -25,9 +25,10 @@ export default function Home() {
         </div>
         <Link href="/memory" className="button-49 w-[250px] sm:w-[400px] text-xl sm:text-2xl my-[40px]">思い出を覗く</Link>
         <div className={`${gothic.className} text-[#24a9a6] text-[24px] sm:text-[32px] lg:text-[38px] my-[100px] sm:my-[50px] mx-6 sm:mx-[50px] lg:mx-[200px]`}>
-          <p>ユーザーの思い出のifの世界線を見せてくれるアプリです。</p>
+          <p>思い出のifの世界線をAIが作ってくれるです。</p>
           <p>あの時もし告白していたら..のようにもしもの世界を考えたことはありませんか？</p>
-          <p>このアプリではユーザーがもし○○だったら..のように分岐点を設定しその世界を覗いてみることができます。</p>
+          <p>このアプリではユーザーがもし○○だったら..のストーリーをAIが考えてくれます。</p>
+          <p>他のユーザーの思い出とＡＩストーリーを覗いてみましょう。</p>
         </div>
       </div>
     </>

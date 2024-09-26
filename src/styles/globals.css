@@ -118,15 +118,15 @@ a.btn_09:hover {
 
 
 /* styles/globals.css または任意のCSSファイルに追加 */
-@keyframes rotate {
-  from {
-    transform: rotate(0deg);
+@keyframes spin {
+  0% {
+      transform: rotate(0deg);
   }
-  to {
-    transform: rotate(360deg);
+  100% {
+      transform: rotate(360deg);
   }
 }
 
-.rotating {
-  animation: rotate 1s linear infinite; /* 1秒間で回転し続ける */
+.loading-image {
+  animation: spin 1s linear infinite; /* 1秒で回転し続ける */
 }
