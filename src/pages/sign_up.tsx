@@ -4,9 +4,8 @@ import { useRouter } from "next/router";
 import Cookies from "js-cookie";
 import { useRecoilState } from "recoil";
 import { authState } from "@/atom/authAtom";
-import axios from "axios";  // AxiosError をインポート
+import axios from "axios"; // AxiosError をインポート
 import Image from 'next/image';
-
 
 export default function CreateUser() {
   const [name, setName] = useState<string>("");
@@ -15,10 +14,12 @@ export default function CreateUser() {
   const [passwordConfirmation, setPasswordConfirmation] = useState<string>("");
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>(false); // loading 状態を追加
   const router = useRouter();
   const [, setAuth] = useRecoilState(authState);
 
   const SignUp = async (name: string, email: string, password: string) => {
+    setLoading(true); // 処理開始前に読み込み中を設定
     try {
       const response = await axiosInstance.post("/auth", {
         name: name,
@@ -41,13 +42,15 @@ export default function CreateUser() {
 
         router.push("/");
       }
-    } catch (e: unknown) {  // any を unknown に変更
-      if (axios.isAxiosError(e)) {  // Axios エラーであるかを確認
+    } catch (e: unknown) { // any を unknown に変更
+      if (axios.isAxiosError(e)) { // Axios エラーであるかを確認
         setError(e.response?.data?.errors?.[0] || "登録に失敗しました");
       } else {
         setError("登録に失敗しました");
       }
       setSuccess(null);
+    } finally {
+      setLoading(false); // 処理終了後に読み込み中を解除
     }
   };
 
@@ -78,8 +81,18 @@ export default function CreateUser() {
             width={250} // 幅
             height={150} // 高さ
             className="sm:w-[350px] xl:w-[400px]"
-          />
+            />
         </div>
+        {loading && <div className="flex-col absolute top-0 left-0 right-0 bottom-0 flex items-center justify-center bg-white bg-opacity-50 z-10 ">
+        <Image
+          className="rotating block" // ここにクラスを追加
+          src="/images/フェレット_-removebg-preview.png"
+          alt="画像の説明"
+          width={200}
+          height={150}
+        />
+        <p className="text-2xl block font-bold">登録中...</p>
+      </div>} {/* 読み込み中メッセージ */}
         {error && <p style={{ color: "red" }}>{error}</p>}
         {success && <p style={{ color: "green" }}>{success}</p>}
         <div className="m-10 p-10 flex flex-col justify-center bg-red-50 rounded-lg max-w-[900px] w-[90%]">
