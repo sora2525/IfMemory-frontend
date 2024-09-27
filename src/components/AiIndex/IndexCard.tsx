@@ -21,6 +21,7 @@ export function IndexCard({ text }: IndexCardProps ) {
                         <div className="card-actions justify-end flex flex-col border-l-4 border-blue-200 pl-4 text-gray-700">
                             <h2 className="text-xl font-semibold mb-2">{text.title}</h2>
                             <p className="">投稿者: {text.user.name.length > 12 ? `${text.user.name.slice(0, 12)}...` : text.user.name}</p> {/* ユーザー名を表示 */}
+                            <p className="font-semibold text-lg sm:text-xl">{text.if_text}</p>
                             <p>{text.question.length > 50 ? `${text.question.slice(0, 50)}...` : text.question}</p>
                         </div>
                     </div>

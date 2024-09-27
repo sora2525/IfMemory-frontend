@@ -62,8 +62,8 @@ export function Form() {
         {loading && (
           <div className="flex-col absolute top-0 left-0 right-0 bottom-0 flex items-center justify-center bg-white bg-opacity-50 z-10 ">
             <Image
-              className="rotating block" // ここにクラスを追加
-              src="/images/フェレット_-removebg-preview.png"
+              className="rotating block" 
+              src="/images/回るフェレット.webp"
               alt="画像の説明"
               width={200}
               height={150}
@@ -74,13 +74,14 @@ export function Form() {
 
         <div>
           <Image
-            src="/images/IMG_1839-removebg-preview.png" 
+            src="/images/新規投稿.webp" 
             alt="画像の説明"
             width={250} // 幅
             height={150} // 高さ
             className="sm:w-[350px] xl:w-[400px]"
             />
         </div>
+
             {error && <p style={{ color: "red" }}>{error}</p>}
         <div className="m-10 p-10 flex flex-col justify-center bg-red-50 rounded-lg max-w-[900px] w-[90%]">
           <form onSubmit={handleSubmit}>

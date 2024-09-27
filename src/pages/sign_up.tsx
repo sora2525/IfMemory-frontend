@@ -76,7 +76,7 @@ export default function CreateUser() {
       <div className="flex flex-col items-center justify-center">
         <div>
           <Image
-            src="/images/IMG_1838-removebg-preview.png" 
+            src="/images/新規登録.webp" 
             alt="画像の説明"
             width={250} // 幅
             height={150} // 高さ
@@ -86,7 +86,7 @@ export default function CreateUser() {
         {loading && <div className="flex-col absolute top-0 left-0 right-0 bottom-0 flex items-center justify-center bg-white bg-opacity-50 z-10 ">
         <Image
           className="rotating block" // ここにクラスを追加
-          src="/images/フェレット_-removebg-preview.png"
+          src="/images/回るフェレット.webp"
           alt="画像の説明"
           width={200}
           height={150}

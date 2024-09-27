@@ -31,7 +31,7 @@ export default function LoginUser() {
     <div className="flex flex-col items-center justify-center">
       <div>
         <Image
-          src="/images/IMG_1837-removebg-preview.png"
+          src="/images/ログイン.webp"
           alt="画像の説明"
           width={250}
           height={150}
@@ -43,7 +43,7 @@ export default function LoginUser() {
       {loading && <div className="flex-col absolute top-0 left-0 right-0 bottom-0 flex items-center justify-center bg-white bg-opacity-50 z-10 ">
         <Image
           className="rotating block" // ここにクラスを追加
-          src="/images/フェレット_-removebg-preview.png"
+          src="/images/回るフェレット.webp"
           alt="画像の説明"
           width={200}
           height={150}
