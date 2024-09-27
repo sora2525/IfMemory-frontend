@@ -41,12 +41,12 @@ export default function TextAll() {
             <div className="">
                 <div className="flex flex-col justify-center items-center">
                     <Link href="./memory/new" className="button-49 my-6 w-[250px] sm:w-[400px] text-xl sm:text-2xl">
-                        新しく作る
+                        新しい思い出を投稿
                     </Link>
 
                     <div>
                         <Image
-                            src="/images/IMG_1836-removebg-preview.png" 
+                            src="/images/みんなのおもいで.webp" 
                             alt="画像の説明"
                             width={350} // 幅
                             height={300} // 高さ

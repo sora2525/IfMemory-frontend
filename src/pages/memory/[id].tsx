@@ -43,7 +43,7 @@ export default function ShowAi() {
     const createShareLink = () => {
         if (!text) return '';
         const baseUrl = 'https://twitter.com/intent/tweet';
-        const tweetText = encodeURIComponent(`新たな思い出が出来たよ！-${text.title}`);
+        const tweetText = encodeURIComponent(`新たな思い出が出来たよ！-${text.title}-${text.if_text}`);
         const tweetUrl = encodeURIComponent(window.location.href); // 現在のURL
         return `${baseUrl}?text=${tweetText}&url=${tweetUrl}`;
     };
@@ -54,7 +54,7 @@ export default function ShowAi() {
             <div className="flex flex-col items-center justify-center p-4 mt-[35px]">
                 <div className="mr-[50%]">
                     <Image
-                        src="/images/フェレット_-removebg-preview (1).png"
+                        src="/images/みてるフェレット.webp"
                         alt="画像の説明"
                         width={200}
                         height={150}
